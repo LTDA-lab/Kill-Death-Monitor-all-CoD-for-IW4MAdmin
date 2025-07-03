@@ -2,7 +2,6 @@
 description:
 
 "KillDeathMonitor" is a plugin for IW4MAdmin that displays custom messages to players whenever a death occurs, informing the killer and the victim in real time during the match.
-just put it in the "Plugins" folder inside your "IW4MAdmin"
 
 instructions
 just put it in the "Plugins" folder inside your "IW4MAdmin"
