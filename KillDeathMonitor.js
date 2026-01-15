@@ -1,20 +1,31 @@
 ﻿plugin = {
     author: "LTDA-lab",
-    version: 1.1,
+    version: 1.2,
     name: "KillDeathMonitor",
+
+    config: {
+        killMessage: "^2You ^7killed ^1{targetName}",
+        deathMessage: "^1{originName} ^7killed ^2You"
+    },
 
     onEventAsync: function (gameEvent, server) {
         if (!gameEvent || !server) return;
+
         if (gameEvent.Type === 303) {
             var origin = gameEvent.Origin;
             var target = gameEvent.Target;
-            if (!origin || !target || !server.Clients.includes(origin) || !server.Clients.includes(target)) return;
+
+            if (!origin || !target || !server.Clients.includes(origin) || !server.Clients.includes(target) || origin.Id === target.Id) return;
+
             try {
-                origin.Tell("^2You ^7killed ^1" + target.Name);
-                target.Tell("^1" + origin.Name + " ^7killed ^2You");
+                var killMessage = this.config.killMessage.replace('{targetName}', target.Name);
+                var deathMessage = this.config.deathMessage.replace('{originName}', origin.Name);
+
+                origin.Tell(killMessage);
+                target.Tell(deathMessage);
             } catch (ex) {
-                if (server.Logger && typeof server.Logger.WriteWarning === "function") {
-                    server.Logger.WriteWarning("Error al procesar evento de muerte: " + ex.message);
+                if (server.Logger && typeof server.Logger.WriteWarning === 'function') {
+                    server.Logger.WriteWarning('Error processing death event: ' + ex.message);
                 }
             }
         }
