@@ -32,5 +32,7 @@ Simple, lightweight, and informative — keeping players aware of every kill in 
 
 Preview
 
+<img width="1450" height="1085" alt="32272" src="https://github.com/user-attachments/assets/325768f0-abc1-420a-9093-f6904d073439" />
 
-<img width="368" height="275" alt="2026-08-13 02_45_57-Greenshot" src="https://github.com/user-attachments/assets/29d7d606-9346-484d-990e-eaa3b964f28a" />
+
+
