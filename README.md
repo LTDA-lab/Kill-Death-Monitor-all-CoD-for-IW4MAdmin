@@ -32,7 +32,5 @@ Simple, lightweight, and informative — keeping players aware of every kill in 
 
 Preview
 
-"KillDeathMonitor Preview" (https://github.com/user-attachments/assets/29d7d606-9346-484d-990e-eaa3b964f28a)
-
 
 <img width="368" height="275" alt="2026-08-13 02_45_57-Greenshot" src="https://github.com/user-attachments/assets/29d7d606-9346-484d-990e-eaa3b964f28a" />
