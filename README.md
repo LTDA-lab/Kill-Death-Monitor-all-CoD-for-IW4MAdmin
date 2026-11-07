@@ -32,7 +32,8 @@ Simple, lightweight, and informative — keeping players aware of every kill in 
 
 Preview
 
-<img width="1450" height="1085" alt="32272" src="https://github.com/user-attachments/assets/325768f0-abc1-420a-9093-f6904d073439" />
+<img width="446" height="334" alt="698136389-325768f0-abc1-420a-9093-f6904d073439" src="https://github.com/user-attachments/assets/6c5f8911-4c3e-4bde-8c51-db549e27f64a" />
+
 
 
 
