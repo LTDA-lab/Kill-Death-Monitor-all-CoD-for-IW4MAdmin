@@ -1,6 +1,6 @@
 plugin = {
     author: "LTDA-lab",
-    version: 1.5,
+    version: 1.6,
     name: "KillDeathMonitor",
 
     onEventAsync: function (gameEvent, server) {
@@ -13,8 +13,9 @@ plugin = {
         if (!origin || !target) return;
         if (!server.Clients.includes(origin) || !server.Clients.includes(target)) return;
 
-        // --- Extraer arma ---
+        // --- Extraer arma y zona de impacto ---
         var weapon = null;
+        var hitLoc = null;
 
         if (gameEvent.Data) {
             if (typeof gameEvent.Data.Weapon === "string" && gameEvent.Data.Weapon.length)
@@ -32,10 +33,19 @@ plugin = {
                     }
                 }
             }
+
+            // Buscar hit location (head / helmet)
+            if (typeof gameEvent.Data.HitLocation === "string")
+                hitLoc = gameEvent.Data.HitLocation;
+            else if (typeof gameEvent.Data.HitLoc === "string")
+                hitLoc = gameEvent.Data.HitLoc;
+            else if (typeof gameEvent.Data.sHitLoc === "string")
+                hitLoc = gameEvent.Data.sHitLoc;
         }
 
         if (!weapon && typeof gameEvent.WeaponName === "string") weapon = gameEvent.WeaponName;
         if (!weapon && typeof gameEvent.Weapon === "string") weapon = gameEvent.Weapon;
+        if (!hitLoc && typeof gameEvent.HitLocation === "string") hitLoc = gameEvent.HitLocation;
 
         // --- Limpiar arma ---
         if (weapon) {
@@ -54,16 +64,25 @@ plugin = {
 
         if (weapon && weaponMap[weapon]) weapon = weaponMap[weapon];
 
+        // --- Verificar Headshot ---
+        var headshotTag = "";
+        if (hitLoc) {
+            var cleanHit = String(hitLoc).trim().toLowerCase();
+            if (cleanHit === "head" || cleanHit === "helmet") {
+                headshotTag = " ^3[Headshot]";
+            }
+        }
+
         try {
             var originName = origin.Name || "Unknown";
             var targetName = target.Name || "Unknown";
             var w = weapon ? "^7[" + weapon + "]" : "^3[unknown]";
 
             // Quien mata
-            origin.Tell("^2You ^7" + w + " ^1" + targetName);
+            origin.Tell("^2You ^7" + w + " ^1" + targetName + headshotTag);
 
             // Quien muere
-            target.Tell("^1" + originName + " ^7" + w + " ^2you");
+            target.Tell("^1" + originName + " ^7" + w + " ^2you" + headshotTag);
 
         } catch (ex) {
             if (server.Logger && typeof server.Logger.WriteWarning === "function") {
