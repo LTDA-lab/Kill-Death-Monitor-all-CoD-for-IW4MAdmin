@@ -1,13 +1,14 @@
 plugin = {
     author: "LTDA-lab",
-    version: 1.7,
+    version: 1.8,
     name: "KillDeathMonitor",
 
     onEventAsync: function (gameEvent, server) {
         if (!gameEvent || !server) return;
 
-        // --- Solo funcionar en el servidor 28973 ---
-        if (Number(server.Port) !== 28973) return;
+        // --- Lista de puertos donde funcionará el plugin (puedes agregar o cambiar los que quieras) ---
+        var allowedPorts = [28970, 28971, 28973];
+        if (!allowedPorts.includes(Number(server.Port))) return;
 
         if (gameEvent.Type !== 303) return;
 
